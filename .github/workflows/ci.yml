@@ -32,7 +32,7 @@ jobs:
 
       - name: Run lint
         run: ruff check src/ tests/
-    docker:
+  docker:
     needs: test
     runs-on: ubuntu-latest
     steps:
