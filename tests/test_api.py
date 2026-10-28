@@ -3,11 +3,21 @@ from src.app.main import app
 
 client = TestClient(app)
 
-def test_health():
-    response = client.get("/health")
-    assert response.status_code == 200
-    assert response.json() == {"status": "ok"}
+def test_api_contract():
+    customer = {
+        "tenure_months": 5,
+        "monthly_fee": 89.9,
+        "contract": "one-year",
+        "internet_service": "fiber",
+        "support_calls": 2
+    }
 
+    response = client.post("/predict", json=customer)
+
+    assert response.status_code == 200
+    assert "churn_probability" in response.json()
+    assert isinstance(response.json()["churn_probability"], float) 
+    
 def test_model_loads():
     from src.app.main import model
     assert model is not None
