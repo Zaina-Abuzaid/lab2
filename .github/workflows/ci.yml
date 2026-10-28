@@ -43,7 +43,12 @@ jobs:
         run: docker build -t lab2-churn:${{ github.sha }} .
       - name: Install Trivy
         run: |
-          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin v0.67.2
+          docker pull aquasec/trivy:0.67.2
+          docker create --name trivy-installer aquasec/trivy:0.67.2
+          docker cp trivy-installer:/usr/local/bin/trivy ./trivy
+          sudo mv ./trivy /usr/local/bin/trivy
+          sudo chmod +x /usr/local/bin/trivy
+          docker rm trivy-installer
 
       - name: Scan Docker image
         run: trivy image --exit-code 1 --severity HIGH,CRITICAL lab2-churn:${{ github.sha }}       
