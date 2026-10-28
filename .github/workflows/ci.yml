@@ -43,10 +43,7 @@ jobs:
         run: docker build -t lab2-churn:${{ github.sha }} .
       - name: Install Trivy
         run: |
-          sudo apt-get update
-          sudo apt-get install -y wget
-          wget -qO trivy.deb https://github.com/aquasecurity/trivy/releases/download/v0.67.2/trivy_0.67.2_Linux-64bit.deb
-          sudo dpkg -i trivy.deb
+          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin v0.67.2
 
       - name: Scan Docker image
         run: trivy image --exit-code 1 --severity HIGH,CRITICAL lab2-churn:${{ github.sha }}       
