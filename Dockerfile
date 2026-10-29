@@ -1,9 +1,6 @@
 FROM python:3.13-slim-trixie AS builder
-
 WORKDIR /app
-
 COPY requirements.txt .
-
 RUN pip install --no-cache-dir --prefix=/install -r requirements.txt
 
 RUN python -m pip install --no-cache-dir --prefix=/install --upgrade --force-reinstall "setuptools>=78.1.1" "msgpack>=1.2.3" "urllib3>=2.8.0"
