@@ -1,11 +1,13 @@
-FROM python:3.13.9-slim AS builder
+FROM python:3.13-slim-trixie AS builder
 WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir --prefix=/install -r requirements.txt
-FROM python:3.13.9-slim AS runtime
+RUN python -m pip install --no-cache-dir --prefix=/install --upgrade --force-reinstall "setuptools>=78.1.1" "msgpack>=1.2.3" "urllib3>=2.8.0"
+FROM python:3.13-slim-trixie AS runtime
 RUN apt-get update && apt-get upgrade -y && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
 COPY --from=builder /install /usr/local
+RUN python -m pip install --no-cache-dir --upgrade --force-reinstall "setuptools>=78.1.1" "msgpack>=1.2.3" "urllib3>=2.8.0"
 COPY src/ ./src/
 COPY model.joblib ./model.joblib
 RUN useradd --create-home appuser

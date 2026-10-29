@@ -3,4 +3,4 @@ scikit-learn
 joblib
 fastapi
 uvicorn
-jupyter
+msgpack>=1.2.3
