@@ -49,7 +49,9 @@ jobs:
           sudo mv ./trivy /usr/local/bin/trivy
           sudo chmod +x /usr/local/bin/trivy
           docker rm trivy-installer
-
+      - name: Check installed package versions
+        run: |
+          docker run --rm lab2-churn:${{ github.sha }} python -m pip show msgpack setuptools urllib3
       - name: Scan Docker image
         run: trivy image --exit-code 1 --severity HIGH,CRITICAL --ignore-unfixed lab2-churn:${{ github.sha }}      
       - name: Login to GHCR
