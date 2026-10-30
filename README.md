@@ -77,4 +77,3 @@ The Trivy problem helped me understand that even when the application works corr
 
 I also learned how to read GitHub Actions logs and troubleshoot errors step by step.
 
-## GHCR Image Digest: sha256:0ae96fc880cdf7500d028f708310e01561b091eafe7a80e04b25bd9278963bdc
