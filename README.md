@@ -39,7 +39,7 @@ http://localhost:8000/docs
 * /health: Checks if the API is working.
 * /predict: Uses the model to make a churn prediction.
 
-##How to Run the Tests
+## How to Run the Tests
 
 To run the tests, use:
 
@@ -76,3 +76,5 @@ I also learned how to write automated tests, build Docker images, and use GitHub
 The Trivy problem helped me understand that even when the application works correctly, security checks can still cause the CI/CD pipeline to fail.
 
 I also learned how to read GitHub Actions logs and troubleshoot errors step by step.
+
+## GHCR Image Digest: sha256:0ae96fc880cdf7500d028f708310e01561b091eafe7a80e04b25bd9278963bdc
