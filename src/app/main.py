@@ -43,5 +43,6 @@ def health():
 @app.post("/predict")
 def predict(customer: CustomerInput):
     X = schema.validate(pd.DataFrame([customer.model_dump()]), need_target=False)[schema.FEATURES]
+    X = X.rename(columns={"monthly_fee": "monthly_charges"})
     p = float(model.predict_proba(X)[0, 1])
     return {"churn_probability": round(p, 3)}
