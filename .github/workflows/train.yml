@@ -52,7 +52,7 @@ jobs:
         run: |
           git diff --quiet "${{ github.event.pull_request.base.sha || github.event.before }}" HEAD -- src/train/ data/ || echo "changed=true" >> "$GITHUB_OUTPUT"
       - name: Promotion gate (exit code 1 = blocked)
-        if: github.event_name != 'pull_request' || steps.model_changes.outputs.changed == 'true'
+        if: steps.model_changes.outputs.changed == 'true'
         run: python scripts/promote.py --champion-file "$RUNNER_TEMP/champion.json"
 
       - name: Summary
