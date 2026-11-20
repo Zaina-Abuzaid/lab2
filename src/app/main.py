@@ -35,7 +35,8 @@ class CustomerInput(BaseModel):
 def health():
    return {
     "status": "ok",
-    "model_version": metadata["model_version"]
+    "model_version": metadata["model_version"],
+    "mlflow_run_id": metadata.get("mlflow_run_id")
 }
 
 
