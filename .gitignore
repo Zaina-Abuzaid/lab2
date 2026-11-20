@@ -2,3 +2,6 @@ __pycache__/
 *.pyc
 .venv/
 .env
+!artifacts/champion.json
+!artifacts/metadata.json
+!artifacts/model.joblib
