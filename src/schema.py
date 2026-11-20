@@ -9,8 +9,7 @@ TARGET = "churn"
 
 # Columns that an upstream team renamed, mapped back to the names the model expects.
 # Lab 1, Twist 1: churn_v2.csv renamed monthly_charges to monthly_fee.
-RENAMES: dict[str, str] = {}
-
+RENAMES: dict[str, str] = {"monthly_fee": "monthly_charges"}
 
 class SchemaError(ValueError):
     """Raised when a data file does not match the contract."""

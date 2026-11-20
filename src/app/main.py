@@ -5,15 +5,19 @@ Run it by hand (this is Round 1 of the race):
 Then send predictions with curl (see sample_request.json).
 """
 import joblib
+import json
 import pandas as pd
 from fastapi import FastAPI
 from pydantic import BaseModel, Field
+from src import schema
 
 MODEL_PATH = "model.joblib"   # where the notebook saves the model (yes, hard-coded on purpose)
 FEATURES = ["tenure_months", "monthly_fee", "contract", "internet_service", "support_calls"]
 
 app = FastAPI(title="AI381 Lab 1 churn API")
 model = joblib.load(MODEL_PATH)
+with open("metadata.json", "r") as f:
+    metadata = json.load(f)
 
 class CustomerInput(BaseModel):
     tenure_months: int = Field(ge=0)
@@ -24,11 +28,14 @@ class CustomerInput(BaseModel):
 
 @app.get("/health")
 def health():
-    return {"status": "ok"}
+   return {
+    "status": "ok",
+    "model_version": metadata["model_version"]
+}
 
 
 @app.post("/predict")
 def predict(customer: CustomerInput):
-    X = pd.DataFrame([customer.model_dump()])[FEATURES]
+    X = schema.validate(pd.DataFrame([customer.model_dump()]), need_target=False)[schema.FEATURES]
     p = float(model.predict_proba(X)[0, 1])
     return {"churn_probability": round(p, 3)}

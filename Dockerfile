@@ -17,7 +17,8 @@ RUN python -m pip install --no-cache-dir --upgrade --force-reinstall "setuptools
 
 COPY src/ ./src/
 
-COPY model.joblib ./model.joblib
+COPY artifacts/model.joblib ./model.joblib
+COPY artifacts/metadata.json ./metadata.json
 
 RUN useradd --create-home appuser
 
