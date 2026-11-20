@@ -2,14 +2,14 @@
 
 import pandas as pd
 
-NUMERIC = ["tenure_months", "monthly_charges", "support_calls"]
+NUMERIC = ["tenure_months", "monthly_fee", "support_calls"]
 CATEGORICAL = ["contract", "internet_service"]
 FEATURES = NUMERIC + CATEGORICAL
 TARGET = "churn"
 
 # Columns that an upstream team renamed, mapped back to the names the model expects.
 # Lab 1, Twist 1: churn_v2.csv renamed monthly_charges to monthly_fee.
-RENAMES: dict[str, str] = {"monthly_fee": "monthly_charges"}
+RENAMES: dict[str, str] = {"monthly_charges": "monthly_fee"}
 
 class SchemaError(ValueError):
     """Raised when a data file does not match the contract."""

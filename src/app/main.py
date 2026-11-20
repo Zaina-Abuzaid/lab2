@@ -16,8 +16,11 @@ FEATURES = ["tenure_months", "monthly_fee", "contract", "internet_service", "sup
 
 app = FastAPI(title="AI381 Lab 1 churn API")
 model = joblib.load(MODEL_PATH)
-with open("metadata.json", "r") as f:
-    metadata = json.load(f)
+try:
+    with open("metadata.json", "r") as f:
+        metadata = json.load(f)
+except FileNotFoundError:
+    metadata = {"model_version": "local"}
 
 class CustomerInput(BaseModel):
     tenure_months: int = Field(ge=0)
